@@ -1,0 +1,102 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
+# This is the schema for your AWS Amplify backend system
+
+type User @model {
+  id: ID!
+  name: String!
+  email: String!
+  phone: String
+  role: String!
+  followUpsResponded: [FollowUp] @hasMany(indexName: "byResponder", fields: ["id"])
+  assignedMembers: [Member] @hasMany(indexName: "byAssignedUser", fields: ["id"])
+}
+
+type Leader @model {
+  id: ID!
+  name: String!
+  phone: String!
+  email: String!
+  cellGroup: CellGroup @hasOne
+  department: Department @hasOne
+}
+
+type Member @model {
+  id: ID!
+  name: String!
+  city: String
+  mobile: String!
+  email: String
+  visitDate: AWSDate
+  guestOf: String
+  ageGroup: String
+  gender: Gender
+  maritalStatus: MaritalStatus
+  occupation: String
+  decision: String
+  comments: String
+  joinFellowship: Boolean
+  fellowshipDetails: String
+  interests: [String]
+  cellGroup: CellGroup @belongsTo
+  status: MemberStatus
+  department: Department @belongsTo
+  followUps: [FollowUp] @hasMany(indexName: "byMember", fields: ["id"])
+  assignedTo: User @belongsTo(fields: ["assignedToId"])
+  assignedToId: ID @index(name: "byAssignedUser")
+}
+
+type CellGroup @model {
+  id: ID!
+  name: String!
+  leader: Leader @hasOne
+  members: [Member] @hasMany
+}
+
+type Department @model {
+  id: ID!
+  name: String!
+  leader: Leader @hasOne
+  members: [Member] @hasMany
+}
+
+type FollowUp @model {
+  id: ID!
+  date: AWSDate!
+  method: FollowUpMethod!
+  summary: String!
+  member: Member @belongsTo(fields: ["memberId"])
+  memberId: ID! @index(name: "byMember")
+  responder: User @belongsTo(fields: ["responderId"])
+  responderId: ID! @index(name: "byResponder")
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum MaritalStatus {
+  SINGLE
+  MARRIED
+  DIVORCED
+  WIDOWED
+}
+
+enum MemberStatus {
+  NEW
+  IN_SCHOOL
+  IN_DEPARTMENT
+  ESTABLISHED
+  ARCHIVED
+}
+
+enum FollowUpMethod {
+  CALL
+  EMAIL
+  SMS
+  WHATSAPP
+}
