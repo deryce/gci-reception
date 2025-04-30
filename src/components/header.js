@@ -32,6 +32,7 @@ const EnhancedNavbar = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState("");
+  const [userId, setUserId] = useState("")
   const client = generateClient();
 
   const toggle = () => setIsOpen(!isOpen);
@@ -54,6 +55,7 @@ const EnhancedNavbar = () => {
       const user = resp.data.getUser
       setIsAuthenticated(true);
       setUsername(user.name);
+      setUserId(sub)
     } catch (error) {
       setIsAuthenticated(false);
       setUsername("");
@@ -201,6 +203,19 @@ const EnhancedNavbar = () => {
                       Follow Up
                     </NavLink>
                   </NavItem>
+
+                  {userId === "b05cb93c-60e1-70d0-e633-99032dfeb48b" && (
+                    <NavItem>
+                      <NavLink
+                        href="/management"
+                        className={`px-3 fw-medium nav-link ${
+                          scrolled ? "text-dark" : "text-white"
+                        }`}
+                      >
+                        Management
+                      </NavLink>
+                    </NavItem>
+                  )}
                 </>
               )}
 

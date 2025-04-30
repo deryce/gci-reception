@@ -11,6 +11,7 @@ import MemberDetails from "./screens/memberDetails";
 import FollowUpDashboard from "./screens/followup";
 import { Amplify } from "aws-amplify";
 import config from "./amplifyconfiguration.json";
+import LeadershipManagement from "./screens/management";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 Amplify.configure(config);
@@ -22,6 +23,7 @@ root.render(
       <Route path="/members" element={<ChurchMembersList />} />
       <Route path="/members/details/:id" element={<MemberDetails />} />
       <Route path="/followup" element={<FollowUpDashboard />} />
+      <Route path="/management" element={<LeadershipManagement />} />
     </Routes>
   </BrowserRouter>
 );
