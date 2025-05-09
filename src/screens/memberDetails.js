@@ -181,7 +181,7 @@ const MemberDetails = () => {
       setMember((prev) => ({
         ...prev,
         followUps: {
-          items: [latestFollowup,  ...prev.followUps.items],
+          items: [latestFollowup, ...prev.followUps.items],
         },
       }));
 
@@ -236,7 +236,7 @@ const MemberDetails = () => {
         variables: {
           input: {
             id: member.id,
-            departmentId: selectedDepartmentId,
+            departmentMembersId: selectedDepartmentId,
           },
         },
       });
@@ -296,7 +296,7 @@ const MemberDetails = () => {
         variables: {
           input: {
             id: member.id,
-            cellGroupId: selectedCellGroupId,
+            cellGroupMembersId: selectedCellGroupId,
           },
         },
       });
@@ -404,10 +404,7 @@ const MemberDetails = () => {
       // Update local state (simulating database update)
       setMember((prev) => ({
         ...prev,
-        followUps: [
-          latestFollowup,
-          ...prev.followUps.items,
-        ],
+        followUps: [latestFollowup, ...prev.followUps.items],
       }));
 
       // Reset form and close modal
@@ -461,10 +458,7 @@ const MemberDetails = () => {
         ...prev,
         status: statusForm.status,
         // Add the status change as a follow-up record
-        followUps: [
-          latestFollowup,
-          ...prev.followUps.items
-        ],
+        followUps: [latestFollowup, ...prev.followUps.items],
       }));
 
       // Reset form and close modal
@@ -681,8 +675,8 @@ const MemberDetails = () => {
                     >
                       {getStatusLabel(member.status)}
                     </Badge>
-                    <div className="small text-muted">
-                      Member ID: {member.id}
+                    <div className="large text-danger text-lg">
+                      Member: {member.name.toUpperCase()}
                     </div>
                   </Col>
 
@@ -805,7 +799,7 @@ const MemberDetails = () => {
                     <div className="mb-2">
                       <Award size={16} className="me-2 text-primary" />
                       <strong>Interests:</strong>{" "}
-                      {member.interests.map((interest, index) => (
+                      {member?.interests?.map((interest, index) => (
                         <Badge color="info" key={index} className="me-1">
                           {interest}
                         </Badge>
@@ -1035,7 +1029,7 @@ const MemberDetails = () => {
                               </ListGroupItem>
                               <ListGroupItem className="border-0 px-0">
                                 <strong>Interests:</strong>{" "}
-                                {member.interests.map((interest, index) => (
+                                {member?.interests?.map((interest, index) => (
                                   <Badge
                                     color="info"
                                     key={index}
@@ -1429,7 +1423,7 @@ const MemberDetails = () => {
                           <CardBody>
                             <h6>Ministry Interests</h6>
                             <div className="mb-3">
-                              {member.interests.map((interest, index) => (
+                              {member?.interests?.map((interest, index) => (
                                 <Badge
                                   color="info"
                                   className="me-1 mb-1"

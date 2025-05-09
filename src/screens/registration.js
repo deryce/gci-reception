@@ -319,7 +319,7 @@ const ChurchRegistrationForm = () => {
                   icon={<Mail size={18} />}
                   error={errors.email}
                   rules={{
-                    required: "Email address is required",
+                    // required: "Email address is required",
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                       message: "Please enter a valid email address",

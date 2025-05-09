@@ -336,9 +336,9 @@ const FollowUpDashboard = () => {
     .filter((member) => {
       // Search term filter
       const searchMatch =
-        member.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        member.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        member.phoneNumber.includes(searchTerm);
+        member?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        member?.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        member?.phoneNumber.includes(searchTerm);
 
       // Status filter
       const statusMatch =
